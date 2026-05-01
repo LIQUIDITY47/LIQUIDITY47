@@ -1,0 +1,34 @@
+
+from nacl.signing import SigningKey
+import json
+import base64
+
+# Generate a new agent identity
+signing_key = SigningKey.generate()
+verify_key = signing_key.verify_key
+
+public_key = verify_key.encode()
+private_key = signing_key.encode()
+
+print("=== Agent Identity Generated ===")
+print("Public Key (base64):", base64.b64encode(public_key).decode())
+print("Private Key (base64):", base64.b64encode(private_key).decode())
+
+# Example claim
+claim = {
+    "agent": "verifiable-agent-001",
+    "capability": "identity-verification",
+    "timestamp": "2026-05-01T12:00:00Z"
+}
+
+# Sign the claim
+message = json.dumps(claim).encode()
+signed = signing_key.sign(message)
+
+signature = base64.b64encode(signed.signature).decode()
+
+print("\n=== Signed Claim ===")
+print(json.dumps({
+    "claim": claim,
+    "signature": signature
+}, indent=2))
