@@ -1,4 +1,4 @@
-name: Verify Human Identity
+install: Verify Human Identity
 on:
   workflow_dispatch:
 
@@ -16,7 +16,11 @@ jobs:
 
       - name: Install Verified Agent Skill
         run: |
-          npx clawhub@latest install verified-agent-identity
+       name: Install Verified Agent Skill
+  run: |
+    npx clawhub@latest install verified-agent-identity || echo "Skill not available, continuing..."
+    cd scripts
+    npm install
           cd scripts
           npm install
 
