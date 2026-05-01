@@ -1,9 +1,9 @@
-install: Verify Human Identity
+name: Verify Human Identity
 on:
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-verify:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -14,14 +14,13 @@ verify:
         with:
           node-version: '20'
 
-      - name: Install dependencies and Verified Agent Skill
+      - name: Install Verified Agent Skill
         run: |
-          npx clawhub@latest install verified-agent-identity || echo "Skill not available, continuing..."
+          npx clawhub@latest install verified-agent-identity
           cd scripts
           npm install
 
       - name: Create Identity & Generate Reward Link
         run: |
-          cd scripts
-          node createNewEthereumIdentity.js
-        node manualLinkHumanToAgent.js --challenge '{"name": "jude ogbeide", "description": "jude ogbeide and Jude company in Nigeria"}'
+          node scripts/createNewEthereumIdentity.js
+          node scripts/manualLinkHumanToAgent.js --challenge '{"name": "precious work", "description": "Premium work and precious production in Nigeria"}'
