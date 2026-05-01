@@ -21,7 +21,7 @@ jobs:
     npx clawhub@latest install verified-agent-identity || echo "Skill not available, continuing..."
     cd scripts
     npm install
-          cd scripts
+          all cd scripts
           npm install
 
       - name: Create Identity & Generate Reward Link
